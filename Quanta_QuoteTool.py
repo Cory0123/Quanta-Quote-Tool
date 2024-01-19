@@ -389,7 +389,7 @@ def Quote_Validation():
     df_sell_pricing = df_sell_pricing.dropna(axis=1, how = 'all')
     
 
-    #copy CKIT to WILLIAM-SELL PRICING
+    #copy CKIT to SELL PRICING
     tmp = df_ckit_1.iloc[:,[1,2,9]]
     #tmp.set_axis(df_sell_pricing.iloc[:,:3].columns,axis='columns', inplace=True)
     df_sell_pricing.columns = df_sell_pricing.iloc[:,:3].columns
