@@ -392,24 +392,25 @@ def Quote_Validation():
     #copy CKIT to SELL PRICING
     tmp = df_ckit_1.iloc[:,[1,2,9]]
     #tmp.set_axis(df_sell_pricing.iloc[:,:3].columns,axis='columns', inplace=True)
-    df_sell_pricing.columns = df_sell_pricing.iloc[:,:3].columns
-    df_sell_pricing_new = pd.concat([df_sell_pricing.iloc[:,:3], tmp])
+    tmp.columns = df_sell_pricing.iloc[:,:3].columns
+    df_sell_pricing_new = pd.concat([df_sell_pricing.iloc[:,:3], tmp],ignore_index=True)
 
     tmp = df_ckit_2.iloc[:,[1,2,9]]
     #tmp.set_axis(df_sell_pricing.iloc[:,:3].columns,axis='columns', inplace=True)
-    df_sell_pricing.columns = df_sell_pricing.iloc[:,:3].columns
-    df_sell_pricing_new = pd.concat([df_sell_pricing_new.iloc[:,:3], tmp])
+    tmp.columns = df_sell_pricing.iloc[:,:3].columns
+    df_sell_pricing_new = pd.concat([df_sell_pricing_new.iloc[:,:3], tmp],ignore_index=True)
 
     tmp = df_ckit_3.copy()
    #tmp.set_axis(df_sell_pricing.iloc[:,:3].columns,axis='columns', inplace=True)
-    df_sell_pricing.columns = df_sell_pricing.iloc[:,:3].columns
-    df_sell_pricing_new = pd.concat([df_sell_pricing_new.iloc[:,:3], tmp])
+    tmp.columns = df_sell_pricing.iloc[:,:3].columns
+    df_sell_pricing_new = pd.concat([df_sell_pricing_new.iloc[:,:3], tmp],ignore_index=True)
 
     
     #copy cost matrix to sell prcing
     tmp2 = df_cost_matrix[['HP P/N', 'Description', 'Approved Cost']]
     #tmp2.set_axis(df_sell_pricing.iloc[:,:3].columns,axis='columns', inplace=True)
-    df_sell_pricing.columns = df_sell_pricing.iloc[:,:3].columns   
+    tmp2.columns = df_sell_pricing.iloc[:,:3].columns
+    df_sell_pricing_new = pd.concat([df_sell_pricing.iloc[:,:3], tmp2])   
     
     #add EOLQ, DUMMY
     to_append = ['EOLQ','',0.95]
@@ -446,8 +447,8 @@ def Quote_Validation():
     #Copy busa to sell pricing
     tmp = df_cpct_busa.iloc[:,:3]
     #tmp.set_axis(df_sell_pricing_new.columns,axis='columns', inplace=True)
-    df_sell_pricing.columns = df_sell_pricing.iloc[:,:3].columns
-    df_busa_sellpricing = pd.concat([df_sell_pricing_new, tmp])
+    tmp.columns = df_sell_pricing.iloc[:,:3].columns
+    df_busa_sellpricing = pd.concat([df_sell_pricing_new, tmp],ignore_index=True)
 
     #clean op
     
@@ -464,9 +465,10 @@ def Quote_Validation():
 
     #copy op to sell pricing
     #df_cpct_summary_op.set_axis(df_sell_pricing.iloc[:,:3].columns,axis='columns', inplace=True)
-    df_sell_pricing.columns = df_sell_pricing.iloc[:,:3].columns
-    df_all_pricing = pd.concat([df_busa_sellpricing, df_cpct_summary_op])
-    df_all_pricing = df_all_pricing.reset_index(drop=True)  
+    df_cpct_summary_op.columns = df_sell_pricing.iloc[:,:3].columns
+    df_all_pricing = pd.concat([df_busa_sellpricing, df_cpct_summary_op],ignore_index=True)
+   
+    df_all_pricing = df_all_pricing.reset_index(drop=True)
     
     # add one sheet named tmp
     app = xw.apps.active 
