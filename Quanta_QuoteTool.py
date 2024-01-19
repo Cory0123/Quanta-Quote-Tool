@@ -414,7 +414,8 @@ def Quote_Validation():
     #add EOLQ, DUMMY
     to_append = ['EOLQ','',0.95]
     a_series = pd.Series(to_append, index = df_sell_pricing.iloc[:,:3].columns)
-    
+    df_a_series = pd.DataFrame([a_series],columns=tmp2.columns)
+
     file_name_upper = re.split('\\\\|/',paths_quote)[-1].upper()
     if 'FINAL' in file_name_upper:
         to_append2 = ['Dummy','',0.00]  
@@ -422,9 +423,12 @@ def Quote_Validation():
         to_append2 = ['Dummy','',0.01]
         
     a_series2 = pd.Series(to_append2, index = df_sell_pricing.iloc[:,:3].columns)
+    df_a_series2 = pd.DataFrame([a_series2],columns=tmp2.columns)
     
-    tmp2 = tmp2.append(a_series, ignore_index=True)
-    tmp2 = tmp2.append(a_series2, ignore_index=True)
+    #tmp2 = tmp2.append(a_series, ignore_index=True)
+    #tmp2 = tmp2.append(a_series2, ignore_index=True)
+    tmp2=pd.concat([tmp2,df_a_series], ignore_index=True)
+    tmp2=pd.concat([tmp2,df_a_series2], ignore_index=True)
     df_sell_pricing_new = pd.concat([df_sell_pricing_new, tmp2])
    
     
