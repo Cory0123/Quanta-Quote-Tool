@@ -1,4 +1,7 @@
-
+"""
+Update by cory.chang@hp.com for Python3.12 - Quanta Quote tool
+version: 01/19/2024
+"""
 
 from openpyxl import load_workbook
 import pandas as pd
