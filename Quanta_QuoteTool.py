@@ -341,7 +341,7 @@ def Quote_Validation():
         df_ckit_2 = df_ckit_2.dropna(axis=1, how = 'all')
     else:
         df_ckit_2 = pd.DataFrame(columns=list(range(10)))
-
+    
     ## revised for the format change on 07/07/2022 by Lily chen (lily.chen1@hp.com)
     if paths_ckit_3 != None:
         ckit_file3 = load_workbook(paths_ckit_3)
@@ -353,7 +353,10 @@ def Quote_Validation():
                 df_ckit_3_p1 = pd.read_excel(paths_ckit_3, skiprows = 0, sheet_name = j)
 
             if j == 'Media':
-                df_ckit_3_p1 = df_ckit_3_p1.iloc[:,[1,2,6]]
+                #df_ckit_3_p1 = df_ckit_3_p1.iloc[:,[1,2,6]]
+                df_ckit_3_p1 = df_ckit_3_p1.iloc[:,[1,3,6]]
+            elif j == 'Media  EOL tab':
+                df_ckit_3_p1 = df_ckit_3_p1.iloc[:,[1,3,6]]
             else:
                 df_ckit_3_p1 = df_ckit_3_p1.iloc[:,[1,2,5]]
             #df_ckit_3_p1.set_axis(df_sell_pricing.iloc[:,:3].columns,axis='columns', inplace=True)
